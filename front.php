@@ -9,8 +9,6 @@
  * @link       http://www.jfusion.org
  */
 
-use JFusion\Plugin\Plugin_Front;
-
 /**
  * JFusion plugin class for Gallery2
  *
@@ -22,7 +20,7 @@ use JFusion\Plugin\Plugin_Front;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link       http://www.jfusion.org
  */
-class Front extends Plugin_Front
+class Front extends \JFusion\Plugin\Front
 {
 	/**
 	 * @var $helper Helper
