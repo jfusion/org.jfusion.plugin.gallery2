@@ -28,7 +28,6 @@ use GalleryUrlGenerator;
 use GalleryUtilities;
 use JDocumentHTML;
 use JFactory;
-use JRegistry;
 use JRoute;
 
 use RuntimeException;
@@ -108,7 +107,7 @@ class Platform extends Joomla
 	/**
 	 * @param $config
 	 * @param $view
-	 * @param JRegistry $pluginParam
+	 * @param Registry $pluginParam
 	 *
 	 * @return mixed|string
 	 */
@@ -353,7 +352,7 @@ class Platform extends Joomla
 	/**
 	 * @param string &$text
 	 * @param string &$phrase
-	 * @param JRegistry &$pluginParam
+	 * @param Registry &$pluginParam
 	 * @param int $itemid
 	 * @param string $ordering
 	 * @return array
@@ -584,7 +583,7 @@ class Platform extends Joomla
 		if (!isset($query['g2_itemId'])) {
 			/**
 			 * @ignore
-			 * @var $mParam JRegistry
+			 * @var $mParam Registry
 			 */
 			$mParam = $data->mParam;
 			$album = $mParam->get('album', false);
