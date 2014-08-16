@@ -15,6 +15,7 @@ use JFusion\Plugin\Platform\Joomla;
 use JFusion\Plugins\gallery2\Helper;
 
 use Joomla\Language\Text;
+use Joomla\Registry\Registry;
 
 use Psr\Log\LogLevel;
 
@@ -26,6 +27,7 @@ use GalleryPermissionHelper_simple;
 use GalleryStatus;
 use GalleryUrlGenerator;
 use GalleryUtilities;
+
 use JDocumentHTML;
 use JFactory;
 use JRoute;
