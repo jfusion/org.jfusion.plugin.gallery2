@@ -57,13 +57,12 @@ class Helper extends Plugin
             if (!is_file($index_file)) {
                 Framework::raise(LogLevel::WARNING, 'The path to the Gallery2(path: ' . $index_file . ') embed file set in the component preferences does not exist', $this->getJname());
             } else {
-                if (!class_exists('GalleryEmbed')) {
-                    require_once $index_file;
-                } else {
-                    global $gallery;
-	                $config_file = $source_path . 'config.php';
-                    require $config_file;
-                }
+	            require_once $index_file;
+
+	            global $gallery;
+	            $config_file = $source_path . 'config.php';
+	            require $config_file;
+
                 $ret = GalleryEmbed::init($initParams);
                 if ($ret) {
                     Framework::raise(LogLevel::WARNING, 'Error while initialising Gallery2 API', $this->getJname());
