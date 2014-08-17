@@ -60,8 +60,7 @@ class Helper extends Plugin
 	            require_once $index_file;
 
 	            global $gallery;
-	            $config_file = $source_path . 'config.php';
-	            require $config_file;
+	            require $source_path . 'config.php';
 
                 $ret = GalleryEmbed::init($initParams);
                 if ($ret) {
