@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "JFusion\\Plugins\\gallery2\\": "."
+            "JFusion\\Plugins\\gallery2\\": "src/"
         }
     }
 }
