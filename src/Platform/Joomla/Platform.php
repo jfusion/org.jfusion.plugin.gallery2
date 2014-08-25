@@ -286,13 +286,13 @@ class Platform extends Joomla
 			->select('DISTINCT u.g_id AS userid, u.g_userName as username, u.g_fullName AS name')
 			->from('#__User AS u')
 			->innerJoin('#__SessionMap AS s ON s.g_userId = u.g_id')
-			->where('s.g_modificationTimestamp > ' . $active);
+			->where('s.g_modificationTimestamp > ' . $db->quote($active));
 
 		if (!empty($usergroups)) {
 			$usergroups = implode(',', $usergroups);
 
 			$query->innerJoin('#__usergroupmap AS g ON u.g_id = g.g_userId')
-				->where('g.g_groupId IN (' . $usergroups . ')');
+				->where('g.g_groupId IN (' . $db->quote($usergroups) . ')');
 		}
 
 		$query = (string)$query;
@@ -313,7 +313,7 @@ class Platform extends Joomla
 			$query = $db->getQuery(true)
 				->select('COUNT(*)')
 				->from('#__SessionMap')
-				->where('g_modificationTimestamp  > ' . $active)
+				->where('g_modificationTimestamp  > ' . $db->quote($active))
 				->where('g_userId != 5');
 
 			$db->setQuery($query);
@@ -339,7 +339,7 @@ class Platform extends Joomla
 			$query = $db->getQuery(true)
 				->select('COUNT(*)')
 				->from('#__SessionMap')
-				->where('g_modificationTimestamp  > ' . $active)
+				->where('g_modificationTimestamp  > ' . $db->quote($active))
 				->where('g_userId = 5');
 
 			$db->setQuery($query);
@@ -431,7 +431,7 @@ class Platform extends Joomla
 	 */
 	function getBuffer(&$data) {
 		//Handle PHP based Gallery Rewrite
-		$segments = Factory::getApplication()->input->get('jFusion_Route', null, 'raw');
+		$segments = Application::getInstance()->input->get('jFusion_Route', null, 'raw');
 		if (!empty($segments)) {
 			$path_info = '/' . implode('/', unserialize($segments));
 			$path_info = str_replace(':', '-', $path_info);
@@ -522,7 +522,7 @@ class Platform extends Joomla
 
 		//\JFusion\Framework::raise(LogLevel::WARNING, $url, $this->getJname());
 		$url = htmlspecialchars_decode($url);
-		$Itemid = Factory::getApplication()->input->getInt('Itemid');
+		$Itemid = Application::getInstance()->input->getInt('Itemid');
 		$extra = stripslashes($extra);
 		if (substr($baseURL, -1) != '/') {
 			//non-SEF mode
@@ -699,7 +699,7 @@ class Platform extends Joomla
 	 * @return string
 	 */
 	function getEmbedUri($itemId = null) {
-		$mainframe = Factory::getApplication();
+		$mainframe = Application::getInstance();
 		$id = $mainframe->input->get('Itemid', -1);
 		if ($itemId !== null) {
 			$id = $itemId;

@@ -9,6 +9,7 @@
  * @link       http://www.jfusion.org
  */
 
+use JFusion\Application\Application;
 use JFusion\Factory;
 use JFusion\Framework;
 use JFusion\Plugin\Plugin;
@@ -71,7 +72,7 @@ class Helper extends Plugin
                         Framework::raise(LogLevel::WARNING, 'Error while setting cookie path', $this->getJname());
                     } else {
                         if ($fullInit) {
-	                        $user = Factory::getApplication()->getUser();
+	                        $user = Application::getInstance()->getUser();
                             if ($user->userid != 0) {
 	                            try {
 		                            $userPlugin = Factory::getUser($this->getJname());

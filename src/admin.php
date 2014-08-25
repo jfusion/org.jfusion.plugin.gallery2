@@ -182,7 +182,7 @@ class Admin extends \JFusion\Plugin\Admin
 			    $query = $db->getQuery(true)
 				    ->select('g_groupName')
 				    ->from('#__Group')
-				    ->where('g_id = ' . $db->quote((int)$usergroup));
+				    ->where('g_id = ' . (int)$usergroup);
 
 			    $db->setQuery($query);
 			    $group[] = $db->loadResult();
