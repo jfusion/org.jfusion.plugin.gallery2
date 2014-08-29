@@ -75,10 +75,7 @@ class User extends \JFusion\Plugin\User
         if (!$ret) {
             foreach ($groups as $id => $name) {
 	            $result->groups[] = $id;
-	            $result->group_id = $id;
-
 	            $result->groupnames[] = $name;
-	            $result->group_name = $name;
             }
         }
         /**
