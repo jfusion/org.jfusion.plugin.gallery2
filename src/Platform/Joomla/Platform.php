@@ -9,6 +9,7 @@
  * @link       http://www.jfusion.org
  */
 
+use JFusion\Application\Application;
 use JFusion\Factory;
 use JFusion\Framework;
 use JFusion\Plugin\Platform\Joomla;
