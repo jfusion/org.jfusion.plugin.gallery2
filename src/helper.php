@@ -79,7 +79,9 @@ class Helper extends Plugin
 		                            $g2_user = $userPlugin->getUser($user);
 		                            $options = array();
 		                            $options['noframework'] = true;
-		                            $userPlugin->createSession($g2_user, $options);
+		                            if ($g2_user->canLogin()) {
+			                            $userPlugin->createSession($g2_user, $options);
+		                            }
 	                            } catch (Exception $e) {
 		                            Framework::raise(LogLevel::ERROR, $e, $this->getJname());
 	                            }

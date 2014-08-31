@@ -133,37 +133,33 @@ class User extends \JFusion\Plugin\User
             if (!empty($activeUserId)) {
                 list($ret, $anonymousUserId) = GalleryCoreApi::getAnonymousUserId();
                 if ($ret) {
-                    $status['error'][] = $ret->getErrorMessage();
-                    return $status;
+	                throw new RuntimeException($ret->getErrorMessage());
                 } else {
                     /* Can't use getActiveUser() since it might not be set at this point */
                     $activeGalleryUserId = $gallery->getActiveUserId();
                     if ($anonymousUserId != $activeGalleryUserId) {
                         list($ret, $activeUser) = GalleryCoreApi::loadEntitiesById($activeGalleryUserId, 'GalleryUser');
                         if ($ret) {
-                            $status['error'][] = $ret->getErrorMessage();
-                            return $status;
+	                        throw new RuntimeException($ret->getErrorMessage());
                         } else {
                             $event = GalleryCoreApi::newEvent('Gallery::Logout');
                             $event->setEntity($activeUser);
                             list($ret,) = GalleryCoreApi::postEvent($event);
                             if ($ret) {
-                                $status['error'][] = $ret->getErrorMessage();
-                                return $status;
+	                            throw new RuntimeException($ret->getErrorMessage());
                             }
                         }
                     }
                     $ret = $session->reset();
                     if ($ret) {
-                        $status['error'][] = $ret->getErrorMessage();
-                        return $status;
+	                    throw new RuntimeException($ret->getErrorMessage());
                     }
                 }
             }
             //Code is particularly taken from the GalleryEmbed::login function
             list($ret, $user) = GalleryCoreApi::fetchUserByUserName($userinfo->username);
             if ($ret) {
-                $status['error'][] = $ret->getErrorMessage();
+	            throw new RuntimeException($ret->getErrorMessage());
             } else {
                 //Login the Current User
                 $gallery->setActiveUser($user);
@@ -173,7 +169,7 @@ class User extends \JFusion\Plugin\User
                 //Set Site admin if necessary
                 list($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup($user->id);
                 if ($ret) {
-                    $status['error'][] = $ret->getErrorMessage();
+	                throw new RuntimeException($ret->getErrorMessage());
                 } else {
                     if ($isSiteAdmin) {
                         $session->put('session.siteAdminActivityTimestamp', $phpVm->time());
