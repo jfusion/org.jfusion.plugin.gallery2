@@ -108,12 +108,13 @@ class User extends \JFusion\Plugin\User
         return $status;        
     }
 
-    /**
-     * @param Userinfo $userinfo
-     * @param array $options
-     *
-     * @return array
-     */
+	/**
+	 * @param Userinfo $userinfo
+	 * @param array    $options
+	 *
+	 * @throws \RuntimeException
+	 * @return array
+	 */
     function createSession(Userinfo $userinfo, $options) {
         $status = array('error' => array(), 'debug' => array());
 
