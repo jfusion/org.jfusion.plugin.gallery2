@@ -15,6 +15,7 @@ use JFusion\Framework;
 use JFusion\Plugin\Platform\Joomla;
 use JFusion\Plugins\gallery2\Helper;
 
+use JFusionFunction;
 use Joomla\Language\Text;
 use Joomla\Registry\Registry;
 
