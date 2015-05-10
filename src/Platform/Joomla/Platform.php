@@ -427,12 +427,11 @@ class Platform extends Joomla
 	}
 
 	/**
-	 * @param object &$data
-	 *
 	 * @throws RuntimeException
+	 *
 	 * @return void
 	 */
-	function getBuffer(&$data) {
+	function getBuffer() {
 		//Handle PHP based Gallery Rewrite
 		$segments = Application::getInstance()->input->get('jFusion_Route', null, 'raw');
 		if (!empty($segments)) {
@@ -446,17 +445,17 @@ class Platform extends Joomla
 		$this->helper->loadGallery2Api(true, $initParams);
 
 		global $gallery, $user;
-		$album = $data->mParam->get('album', -1);
+		$album = $this->data->mParam->get('album', -1);
 		if ($album != - 1) {
 			$gallery->setConfig('defaultAlbumId', $album);
 			$gallery->setConfig('breadcrumbRootId', $album);
 		}
-		$theme = $data->mParam->get('show_templateList', '');
+		$theme = $this->data->mParam->get('show_templateList', '');
 		if (!empty($theme)) {
 			GalleryEmbed::setThemeForRequest($theme);
 		}
 		//Check displaying Sidebar
-		GalleryCapabilities::set('showSidebarBlocks', ($data->mParam->get('dispSideBar') == 1));
+		GalleryCapabilities::set('showSidebarBlocks', ($this->data->mParam->get('dispSideBar') == 1));
 		// Start the Embed Handler
 		ob_start();
 		//$ret = $gallery->setActiveUser($userinfo);
@@ -486,28 +485,18 @@ class Platform extends Joomla
 		}
 		if (isset($g2data['bodyHtml']) && isset($g2data['headHtml'])) {
 			$buffer = '<html><head>' . $g2data['headHtml'] . '</head><body>' . $g2data['bodyHtml'] . '</body></html>';
-			$data->body = $g2data['bodyHtml'];
-			$data->header = $g2data['headHtml'];
-			$data->buffer = $buffer;
+			$this->data->body = $g2data['bodyHtml'];
+			$this->data->header = $g2data['headHtml'];
+			$this->data->buffer = $buffer;
 		}
 	}
 
-	/**
-	 * @param object $data
-	 *
-	 * @return void
-	 */
-	function parseBody(&$data) {
+	function parseBody() {
 		//fix for form actions
-		$data->body = preg_replace_callback('#action="(.*?)"(.*?)>#m', array(&$this, 'fixAction'), $data->body);
+		$this->data->body = preg_replace_callback('#action="(.*?)"(.*?)>#m', array(&$this, 'fixAction'), $this->data->body);
 	}
 
-	/**
-	 * @param object $data
-	 *
-	 * @return void
-	 */
-	function parseHeader(&$data) {
+	function parseHeader() {
 	}
 
 	/**
@@ -567,11 +556,10 @@ class Platform extends Joomla
 
 	/**
 	 * function to generate url for wrapper
-	 * @param &$data
 	 *
 	 * @return string returns the url
 	 */
-	function getWrapperURL($data)
+	function getWrapperURL()
 	{
 		//get the url
 		$query = ($_GET);
@@ -590,7 +578,7 @@ class Platform extends Joomla
 			 * @ignore
 			 * @var $mParam Registry
 			 */
-			$mParam = $data->mParam;
+			$mParam = $this->data->mParam;
 			$album = $mParam->get('album', false);
 			if ($album) {
 				$query['g2_itemId'] = $album;
