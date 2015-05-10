@@ -10,6 +10,7 @@
  */
 
 use JFusion\Application\Application;
+use JFusion\Config;
 use JFusion\Factory;
 use JFusion\Framework;
 use JFusion\Plugin\Platform\Joomla;
@@ -723,7 +724,7 @@ class Platform extends Joomla
 		} else {
 			$uri = $path;
 		}
-		if (Factory::getConfig()->get('sef_suffix')) {
+		if (Config::get()->get('sef_suffix')) {
 			$uri = str_replace('.html', '', $uri);
 		}
 		if (!strpos($uri, '?')) {
